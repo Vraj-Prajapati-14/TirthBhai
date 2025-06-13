@@ -523,7 +523,7 @@ const About = () => {
     {
       name: 'Tirth Prajapati',
       role: 'Senior Mechanical Engineer',
-      image: 'public/uploads/tirth.jpg',
+      image: '/uploads/tirth.jpg',
       email: 'tirth1055@gmail.com',
       linkedIn: 'https://linkedin.com/in/johnsmith',
       github: 'https://github.com/johnsmith',
@@ -532,7 +532,7 @@ const About = () => {
     {
       name: 'Romil Prajapati',
       role: 'Project Manager',
-      image: 'public/uploads/romil.jpg',
+      image: '/uploads/romil.jpg',
       email: 'romil0094@gmail.com',
       linkedIn: 'https://linkedin.com/in/sarahjohnson',
       github: 'https://github.com/sarahjohnson',
