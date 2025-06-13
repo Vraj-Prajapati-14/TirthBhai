@@ -1280,7 +1280,7 @@ const staticProjects: Project[] = [
     client: 'ABC Corp',
     completionDate: '2024-01-10',
     description: 'A fully responsive e-commerce website with modern UI/UX.',
-    images: ['server/uploads/vraj.jpg', 'server/uploads/vraj.jpg'],
+    images: ['server/uploads/bg.jpg', 'server/uploads/bg.jpg'],
   },
   {
     _id: '2',
@@ -1289,7 +1289,7 @@ const staticProjects: Project[] = [
     client: 'Freelancer',
     completionDate: '2024-02-15',
     description: 'A personal portfolio website showcasing projects and blogs.',
-    images: ['server/uploads/bg.jpg', 'server/uploads/vraj.jpg'],
+    images: ['server/uploads/bg.jpg', 'server/uploads/bg.jpg'],
   },
   {
     _id: '3',
@@ -1298,7 +1298,7 @@ const staticProjects: Project[] = [
     client: 'XYZ Ltd',
     completionDate: '2024-03-05',
     description: 'An interactive admin dashboard for business analytics.',
-    images: ['server/uploads/bg.jpg', 'server/uploads/vraj.jpg'],
+    images: ['server/uploads/bg.jpg', 'server/uploads/bg.jpg'],
   },
 ];
 
