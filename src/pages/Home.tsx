@@ -366,7 +366,7 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[100vh] bg-cover bg-center" style={{ backgroundImage: "url('public/uploads/bg.jpg')" }}>
+      <section className="relative h-[100vh] bg-cover bg-center" style={{ backgroundImage: "url('/uploads/bg.jpg')" }}>
         <Navbar />
         <div className="absolute inset-0 bg-black opacity-75"></div>
         <div className="relative max-w-7xl mx-auto px-4 h-full flex items-center">

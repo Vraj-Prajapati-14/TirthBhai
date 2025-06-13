@@ -545,7 +545,7 @@ const About = () => {
       {/* Hero Section */}
       <section
         className="relative h-[100vh] bg-cover bg-center"
-        style={{ backgroundImage: "url('public/uploads/bg.jpg')" }}
+        style={{ backgroundImage: "url('/uploads/bg.jpg')" }}
       >
         <Navbar />
         <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center px-8 lg:px-24">
