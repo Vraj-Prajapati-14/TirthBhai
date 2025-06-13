@@ -523,7 +523,7 @@ const About = () => {
     {
       name: 'Tirth Prajapati',
       role: 'Senior Mechanical Engineer',
-      image: 'server/uploads/tirth.jpg',
+      image: 'public/uploads/tirth.jpg',
       email: 'tirth1055@gmail.com',
       linkedIn: 'https://linkedin.com/in/johnsmith',
       github: 'https://github.com/johnsmith',
@@ -532,7 +532,7 @@ const About = () => {
     {
       name: 'Romil Prajapati',
       role: 'Project Manager',
-      image: 'server/uploads/romil.jpg',
+      image: 'public/uploads/romil.jpg',
       email: 'romil0094@gmail.com',
       linkedIn: 'https://linkedin.com/in/sarahjohnson',
       github: 'https://github.com/sarahjohnson',
@@ -545,7 +545,7 @@ const About = () => {
       {/* Hero Section */}
       <section
         className="relative h-[100vh] bg-cover bg-center"
-        style={{ backgroundImage: "url('server/uploads/bg.jpg')" }}
+        style={{ backgroundImage: "url('public/uploads/bg.jpg')" }}
       >
         <Navbar />
         <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center px-8 lg:px-24">

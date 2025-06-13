@@ -5,9 +5,9 @@ import { motion } from "framer-motion";
 import Navbar from "../../components/Navbar";
 
 const projectImages = {
-  1: "/server/uploads/bg.jpg",
-  2: "/server/uploads/bg.jpg",
-  3: "/server/uploads/bg.jpg",
+  1: "/public/uploads/bg.jpg",
+  2: "/public/uploads/bg.jpg",
+  3: "/public/uploads/bg.jpg",
 };
 
 const projects = [
@@ -62,7 +62,7 @@ function LeanManufacturing() {
       {/* Hero Section */}
       <div
         className="relative h-[80vh] bg-cover bg-center"
-        style={{ backgroundImage: "url('/server/uploads/HVAC.webp')" }}
+        style={{ backgroundImage: "url('/public/uploads/HVAC.webp')" }}
       >
         <div className="absolute inset-0 bg-black opacity-60"></div>
         <div className="relative h-full flex items-center justify-center text-center px-8">
