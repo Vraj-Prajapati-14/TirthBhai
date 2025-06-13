@@ -239,7 +239,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
     { icon: Users, label: 'Team', path: '/admin/team' },
     { icon: FolderKanban, label: 'Projects', path: '/admin/projects' },
     { icon: MessageSquare, label: 'Inquiries', path: '/admin/inquiries' },
-    { icon: Settings, label: 'Settings', path: '/admin/settings' },
+    { icon: Settings, label: 'Blog', path: '/admin/blog' },
   ];
 
   const handleLogout = () => {

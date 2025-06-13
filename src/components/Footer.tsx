@@ -28,11 +28,11 @@ const Footer = () => {
           <ul className="space-y-2">
             <li className="flex items-center space-x-2">
               <MapPin className="w-5 h-5" />
-              <span className="text-gray-400">123 Engineering St, Tech City</span>
+              <span className="text-gray-400">12/24-26 Forth Avenue Blacktown NSW 2148</span>
             </li>
             <li className="flex items-center space-x-2">
               <Phone className="w-5 h-5" />
-              <span className="text-gray-400">+1 234 567 8900</span>
+              <span className="text-gray-400">+61 0401260028</span>
             </li>
             <li className="flex items-center space-x-2">
               <Mail className="w-5 h-5" />
