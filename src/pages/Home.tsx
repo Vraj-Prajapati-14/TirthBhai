@@ -417,46 +417,148 @@ const Home = () => {
       </section>
 
       {/* Reviews Section */}
-      <section className="py-20 bg-blue-900 text-white">
-  <div className="max-w-7xl mx-auto px-4">
-    <h2 className="text-4xl font-bold text-center mb-10">What Our Clients Say</h2>
-    <Slider {...reviewCarouselSettings}>
-      {reviews.map((review, index) => (
-        <div key={index} className="mx-4 p-6 bg-white text-gray-900 rounded-xl shadow-lg border border-gray-300">
-          {/* User Info */}
-          <div className="flex items-center mb-4">
-            <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
-              <User className="w-6 h-6 text-gray-500" />
-            </div>
-            <h4 className="ml-4 text-lg font-semibold">{review.name}</h4>
-          </div>
+      <section
+        style={{
+          padding: '5rem 1rem',
+          background: '#1e3a8a',
+          color: 'white'
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '80rem',
+            margin: '0 auto',
+            padding: '0 1rem'
+          }}
+        >
+          <h2
+            style={{
+              fontSize: '2.25rem',
+              fontWeight: 700,
+              textAlign: 'center',
+              marginBottom: '2.5rem'
+            }}
+          >
+            What Our Clients Say
+          </h2>
+          <Slider {...reviewCarouselSettings}>
+            {reviews.map((review, index) => (
+              <div
+                key={index}
+                style={{
+                  margin: '0 1.5rem', // Margin between carousel cards
+                  padding: '1.5rem',
+                  background: '#ffffff', // bg-white
+                  color: '#1f2937', // text-gray-900
+                  borderRadius: '0.75rem', // rounded-xl
+                  boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // shadow-lg
+                  border: '1px solid #d1d5db', // border-gray-300
+                  minHeight: '16rem'
+                }}
+              >
+                {/* User Info */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '1rem'
+                  }}
+                >
+                  <div
+                    style={{
+                      width: '2.5rem',
+                      height: '2.5rem',
+                      background: '#d1d5db', // bg-gray-300
+                      borderRadius: '50%',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    <User style={{ width: '1.5rem', height: '1.5rem', color: '#6b7280' }} /> {/* text-gray-500 */}
+                  </div>
+                  <h4
+                    style={{
+                      marginLeft: '1rem',
+                      fontSize: '1.125rem', // text-lg
+                      fontWeight: 600 // font-semibold
+                    }}
+                  >
+                    {review.name}
+                  </h4>
+                </div>
 
-          {/* Rating & Title */}
-          <div className="flex items-center mb-2">
-            <span className="text-yellow-500">{'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}</span>
-            <h3 className="ml-2 font-bold">Decent product</h3>
-          </div>
+                {/* Rating & Title */}
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    marginBottom: '0.5rem'
+                  }}
+                >
+                  <span style={{ color: '#f59e0b' }}> {/* text-yellow-500 */}
+                    {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                  </span>
+                  <h3
+                    style={{
+                      marginLeft: '0.5rem',
+                      fontWeight: 700, // font-bold
+                      fontSize: '1rem'
+                    }}
+                  >
+                    Decent product
+                  </h3>
+                </div>
 
-          {/* Review Metadata */}
-          <p className="text-sm text-gray-500 mb-1">
-            Reviewed in {review.location} on {review.date}
-          </p>
-          <p className="text-sm text-gray-700 mb-1">
-            Style Name: {review.style} <span className="text-orange-600 font-semibold"> | Verified Purchase</span>
-          </p>
+                {/* Review Metadata */}
+                <p
+                  style={{
+                    fontSize: '0.875rem', // text-sm
+                    color: '#6b7280', // text-gray-500
+                    marginBottom: '0.25rem'
+                  }}
+                >
+                  Reviewed in {review.location || 'Unknown'} on {review.date || 'Unknown'}
+                </p>
+                <p
+                  style={{
+                    fontSize: '0.875rem', // text-sm
+                    color: '#374151', // text-gray-700
+                    marginBottom: '0.25rem'
+                  }}
+                >
+                  Style Name: {review.style || 'Unknown'}{' '}
+                  <span style={{ color: '#f97316', fontWeight: 600 }}> {/* text-orange-600 font-semibold */}
+                    | Verified Purchase
+                  </span>
+                </p>
 
-          {/* Review Content */}
-          <p className="text-gray-700 mt-4">{review.review}</p>
+                {/* Review Content */}
+                <p
+                  style={{
+                    fontSize: '1rem',
+                    color: '#374151', // text-gray-700
+                    marginTop: '1rem'
+                  }}
+                >
+                  {review.review}
+                </p>
 
-          {/* Helpful Info */}
-          <p className="mt-4 text-sm text-gray-600">{review.helpful} people found this helpful</p>
+                {/* Helpful Info */}
+                <p
+                  style={{
+                    marginTop: '1rem',
+                    fontSize: '0.875rem', // text-sm
+                    color: '#4b5563' // text-gray-600
+                  }}
+                >
+                  {review.helpful || 0} people found this helpful
+                </p>
+              </div>
+            ))}
+          </Slider>
         </div>
-      ))}
-    </Slider>
-  </div>
-</section>
-
-
+      </section>
     </div>
   );
 };

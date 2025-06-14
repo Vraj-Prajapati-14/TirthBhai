@@ -1247,7 +1247,6 @@
 // };
 
 // export default Projects;
-
 import { useState, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import Slider from 'react-slick';
@@ -1340,7 +1339,7 @@ const Projects = () => {
 
   return (
     <div className="min-h-screen">
-      <Navbar/>
+      <Navbar />
       {/* Hero Section */}
       <section className="bg-blue-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4">
@@ -1368,7 +1367,7 @@ const Projects = () => {
             searchedProjects.length > 0 ? (
               <div className="flex flex-wrap gap-6 justify-center">
                 {searchedProjects.map((project, index) => (
-                  <div key={project._id} className="w-1/3 p-2">
+                  <div key={project._id} className="w-full sm:w-1/2 lg:w-1/3 p-2">
                     <ProjectCard
                       project={{ ...project, image: project.images[0] }}
                       index={index}
@@ -1397,45 +1396,43 @@ const Projects = () => {
       </section>
 
       {/* Modal for Project Details */}
-   {/* Modal for Project Details */}
-{selectedProject && (
-  <Modal onClose={() => setSelectedProject(null)}>
-    <h2 className="text-3xl font-bold text-gray-800 text-center">{selectedProject.title}</h2>
-    
-    {/* Project Image Slider */}
-    <div className="mt-6">
-      <Slider
-        dots={true}
-        infinite={true}
-        speed={500}
-        slidesToShow={1}
-        slidesToScroll={1}
-        autoplay={true}
-        autoplaySpeed={3000}
-        arrows={true} // Enables next/prev arrows
-      >
-        {selectedProject.images.map((image, index) => (
-          <div key={index} className="flex justify-center">
-            <img
-              src={image}
-              alt={`${selectedProject.title} - Image ${index + 1}`}
-              className="w-full h-[400px] object-cover rounded-lg shadow-lg"
-            />
+      {selectedProject && (
+        <Modal onClose={() => setSelectedProject(null)}>
+          <h2 className="text-3xl font-bold text-gray-800 text-center">{selectedProject.title}</h2>
+          
+          {/* Project Image Slider */}
+          <div className="mt-6">
+            <Slider
+              dots={true}
+              infinite={true}
+              speed={500}
+              slidesToShow={1}
+              slidesToScroll={1}
+              autoplay={true}
+              autoplaySpeed={3000}
+              arrows={true}
+            >
+              {selectedProject.images.map((image, index) => (
+                <div key={index} className="flex justify-center">
+                  <img
+                    src={image}
+                    alt={`${selectedProject.title} - Image ${index + 1}`}
+                    className="w-full h-[400px] object-cover rounded-lg shadow-lg"
+                  />
+                </div>
+              ))}
+            </Slider>
           </div>
-        ))}
-      </Slider>
-    </div>
 
-    {/* Project Details */}
-    <div className="space-y-4 mt-6 text-gray-700">
-      <div><strong>Category:</strong> {selectedProject.category}</div>
-      <div><strong>Client:</strong> {selectedProject.client}</div>
-      <div><strong>Completion Date:</strong> {selectedProject.completionDate}</div>
-      <p className="mt-2">{selectedProject.description}</p>
-    </div>
-  </Modal>
-)}
-
+          {/* Project Details */}
+          <div className="space-y-4 mt-6 text-gray-700">
+            <div><strong>Category:</strong> {selectedProject.category}</div>
+            <div><strong>Client:</strong> {selectedProject.client}</div>
+            <div><strong>Completion Date:</strong> {selectedProject.completionDate}</div>
+            <p className="mt-2">{selectedProject.description}</p>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

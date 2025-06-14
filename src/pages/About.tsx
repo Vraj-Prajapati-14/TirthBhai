@@ -491,7 +491,6 @@
 // };
 
 // export default About;
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -604,14 +603,14 @@ const About = () => {
             </p>
           </motion.div>
 
-          <div className="flex justify-center gap-16 flex-wrap">
+          <div className="flex justify-center gap-4 sm:gap-8 flex-wrap">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 w-80 cursor-pointer"
+                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 w-full max-w-[320px] cursor-pointer mx-auto"
                 onClick={() => setSelectedMember(member)}
               >
                 <img
@@ -650,7 +649,7 @@ const About = () => {
               onClick={() => setSelectedMember(null)}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 text-3xl"
             >
-              &times;
+              ×
             </button>
             <div className="flex flex-col md:flex-row">
               <img
