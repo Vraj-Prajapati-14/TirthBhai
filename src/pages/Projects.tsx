@@ -1247,14 +1247,40 @@
 // };
 
 // export default Projects;
+
 import { useState, ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { FaSearch, FaTimes } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaChevronLeft, FaChevronRight } from 'react-icons/fa'; // Added FaChevronLeft and FaChevronRight
 import { ProjectCard } from '../components/projects/ProjectCard';
 import Navbar from '../components/Navbar';
+
+// Define custom arrow components with icons
+const PrevArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="absolute left-4 top-1/2 transform -translate-y-1/2 z-20 bg-gray-800 bg-opacity-70 p-3 rounded-full text-white hover:bg-opacity-90 transition-all duration-300"
+      onClick={onClick}
+    >
+      <FaChevronLeft size={24} />
+    </button>
+  );
+};
+
+const NextArrow = (props: any) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="absolute right-4 top-1/2 transform -translate-y-1/2 z-20 bg-gray-800 bg-opacity-70 p-3 rounded-full text-white hover:bg-opacity-90 transition-all duration-300"
+      onClick={onClick}
+    >
+      <FaChevronRight size={24} />
+    </button>
+  );
+};
 
 interface Project {
   _id: string;
@@ -1324,13 +1350,15 @@ const Projects = () => {
   );
 
   const carouselSettings = {
-    dots: true,
+    dots: true, // Keep bottom dots
     infinite: true,
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    prevArrow: <PrevArrow />, // Custom prev button with icon
+    nextArrow: <NextArrow />, // Custom next button with icon
     responsive: [
       { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1 } },
       { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } },

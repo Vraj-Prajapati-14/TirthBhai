@@ -491,10 +491,19 @@
 // };
 
 // export default About;
+
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Award, Users, Clock, CheckCircle } from 'lucide-react';
+import {
+  Award,
+  Users,
+  Clock,
+  CheckCircle,
+  Mail,
+  Github,
+  Linkedin,
+} from 'lucide-react';
 import Navbar from '../components/Navbar';
 
 interface TeamMember {
@@ -511,10 +520,8 @@ const About = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
-  // Disable scrolling when modal is open
   useEffect(() => {
-    if (selectedMember) document.body.classList.add('overflow-hidden');
-    else document.body.classList.remove('overflow-hidden');
+    document.body.classList.toggle('overflow-hidden', !!selectedMember);
     return () => document.body.classList.remove('overflow-hidden');
   }, [selectedMember]);
 
@@ -526,7 +533,8 @@ const About = () => {
       email: 'tirth1055@gmail.com',
       linkedIn: 'https://linkedin.com/in/johnsmith',
       github: 'https://github.com/johnsmith',
-      details: 'John has over 10 years of experience in mechanical engineering, focusing on project management and system optimization.'
+      details:
+        'Tirth has over 10 years of experience in mechanical engineering, focusing on project management and system optimization.',
     },
     {
       name: 'Romil Prajapati',
@@ -535,7 +543,8 @@ const About = () => {
       email: 'romil0094@gmail.com',
       linkedIn: 'https://linkedin.com/in/sarahjohnson',
       github: 'https://github.com/sarahjohnson',
-      details: 'Sarah is an expert project manager with a strong background in mechanical design and client coordination.'
+      details:
+        'Romil is an expert project manager with a strong background in mechanical design and client coordination.',
     },
   ];
 
@@ -603,23 +612,23 @@ const About = () => {
             </p>
           </motion.div>
 
-          <div className="flex justify-center gap-4 sm:gap-8 flex-wrap">
+          <div className="flex justify-center gap-6 sm:gap-10 flex-wrap">
             {teamMembers.map((member, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition duration-300 w-full max-w-[320px] cursor-pointer mx-auto"
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition duration-300 w-full max-w-xs cursor-pointer"
                 onClick={() => setSelectedMember(member)}
               >
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-60 object-cover"
                 />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-2">{member.name}</h3>
+                <div className="p-5">
+                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
                   <p className="text-gray-600">{member.role}</p>
                 </div>
               </motion.div>
@@ -635,15 +644,15 @@ const About = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={() => setSelectedMember(null)} // Close modal on background click
+          onClick={() => setSelectedMember(null)}
         >
           <motion.div
-            initial={{ scale: 0.8 }}
+            initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
-            exit={{ scale: 0.8 }}
+            exit={{ scale: 0.9 }}
             transition={{ duration: 0.3 }}
-            className="bg-white rounded-lg overflow-hidden shadow-2xl w-[90vw] max-w-4xl p-8 relative"
-            onClick={(e) => e.stopPropagation()} // Prevent click from bubbling
+            className="bg-white rounded-xl shadow-2xl w-[90vw] max-w-4xl p-8 relative"
+            onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={() => setSelectedMember(null)}
@@ -657,27 +666,39 @@ const About = () => {
                 alt={selectedMember.name}
                 className="w-full md:w-1/2 h-96 object-cover rounded-lg"
               />
-              <div className="md:ml-8 mt-6 md:mt-0">
-                <h3 className="text-3xl font-bold mb-4">{selectedMember.name}</h3>
-                <p className="text-lg mb-4">{selectedMember.details}</p>
-                <p>
-                  Email:{' '}
-                  <a href={`mailto:${selectedMember.email}`} className="text-blue-600">
-                    {selectedMember.email}
+              <div className="md:ml-8 mt-6 md:mt-0 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-3xl font-bold mb-2">{selectedMember.name}</h3>
+                  <p className="text-lg text-gray-600 mb-4">{selectedMember.role}</p>
+                  <p className="mb-4 text-gray-800">{selectedMember.details}</p>
+                </div>
+                <div className="flex gap-4 mt-4">
+                  <a
+                    href={`mailto:${selectedMember.email}`}
+                    className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-blue-200 transition"
+                  >
+                    <Mail className="w-5 h-5" />
+                    Email
                   </a>
-                </p>
-                <p>
-                  LinkedIn:{' '}
-                  <a href={selectedMember.linkedIn} className="text-blue-600" target="_blank" rel="noopener noreferrer">
-                    View Profile
+                  <a
+                    href={selectedMember.linkedIn}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-blue-200 transition"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                    LinkedIn
                   </a>
-                </p>
-                <p>
-                  GitHub:{' '}
-                  <a href={selectedMember.github} className="text-blue-600" target="_blank" rel="noopener noreferrer">
-                    View Profile
+                  <a
+                    href={selectedMember.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-blue-100 text-blue-700 px-4 py-2 rounded-full flex items-center gap-2 hover:bg-blue-200 transition"
+                  >
+                    <Github className="w-5 h-5" />
+                    GitHub
                   </a>
-                </p>
+                </div>
               </div>
             </div>
           </motion.div>

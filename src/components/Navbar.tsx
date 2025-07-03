@@ -559,113 +559,157 @@
 // };
 
 // export default Navbar;  
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Wrench, ChevronDown } from "lucide-react";
+import { Menu, X, Wrench, ChevronDown, ChevronRight } from "lucide-react";
 
-// Service Routes Mapping
-const serviceRoutes: Record<string, string> = {
-  "Sheet Metal Design": "sheet-metal-design",
-  "HVAC Design & Drafting": "hvac-design",
-  "Product Design": "product-design",
-  "Reverse Engineering": "reverse-engineering",
-  "FEA": "fea",
-  "Custom 3D Prototyping": "custom-3d-prototyping",
-  "3D Rendering": "3d-rendering",
-  "Software Training": "software-training",
-  "Lean Manufacturing & Process Improvement Consulting": "lean-manufacturing",
-  "DFM & DFMA Drawings": "dfm-dfma-drawings",
-  "BIM Services": "bim-services",
-  "Reverse Engineering & Re-design Engineering": "reverse-engineering-redesign",
-};
+// Grouped Services
+const serviceCategories = [
+  {
+    category: "Mechanical Design & Engineering",
+    services: [
+      { name: "Sheet Metal Design", route: "sheet-metal-design" },
+      { name: "Product Design", route: "product-design" },
+      { name: "Reverse Engineering & Re-design Engineering", route: "reverse-engineering-redesign" },
+      { name: "DFM & DFMA Drawings", route: "dfm-dfma-drawings" },
+    ],
+  },
+  {
+    category: "HVAC & Building Systems",
+    services: [
+      { name: "HVAC Design & Drafting", route: "hvac-design" },
+      { name: "BIM Services", route: "bim-services" },
+    ],
+  },
+  {
+    category: "Simulation & Analysis",
+    services: [{ name: "FEA", route: "fea" }],
+  },
+  {
+    category: "Prototyping & Visualization",
+    services: [
+      { name: "Custom 3D Prototyping", route: "custom-3d-prototyping" },
+      { name: "3D Rendering", route: "3d-rendering" },
+    ],
+  },
+  {
+    category: "Software & Training",
+    services: [{ name: "Software Training", route: "software-training" }],
+  },
+  {
+    category: "Operational Consulting",
+    services: [
+      { name: "Lean Manufacturing & Process Improvement Consulting", route: "lean-manufacturing" },
+    ],
+  },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState<number | null>(null);
 
-  const closeDropdown = () => setIsDropdownOpen(false);
+  const toggleCategory = (index: number) => {
+    setActiveCategory(activeCategory === index ? null : index);
+  };
 
   return (
     <nav className="absolute top-0 left-0 w-full z-50 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo Section */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <Wrench className="h-8 w-8 text-blue-500" />
-              <span className="ml-2 text-xl font-bold text-white">
-                MechConsult
-              </span>
-            </Link>
-          </div>
+          {/* Logo */}
+          <Link to="/" className="flex items-center">
+            <Wrench className="h-8 w-8 text-blue-500" />
+            <span className="ml-2 text-xl font-bold text-white">MechConsult</span>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center justify-end space-x-8 w-full">
-            {["Home", "About", "Services", "Projects", "Contact"].map(
-              (item) =>
-                item !== "Services" ? (
-                  <Link
-                  key={item}
-                  to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                  onMouseEnter={closeDropdown}
-                  className="text-white hover:text-blue-500 font-medium transition duration-200"
-                >
-                  {item}
-                </Link>
-                
-                ) : (
-                  // Services Dropdown
-                  <div key="Services" className="relative">
-                    <button
-                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                      onMouseEnter={() => setIsDropdownOpen(true)}
-                      className="text-white hover:text-blue-500 font-medium flex items-center transition duration-200 focus:outline-none"
-                    >
-                      Services
-                      <ChevronDown className="ml-1 h-4 w-4" />
-                    </button>
-                    {isDropdownOpen && (
-                      <div
-                        onMouseLeave={closeDropdown}
-                        className="absolute top-full mt-2 bg-gray-800 rounded-lg shadow-lg w-72"
-                      >
-                        <ul className="py-2">
-                          {Object.entries(serviceRoutes).map(
-                            ([service, route], index) => (
-                              <li key={index}>
+            {["Home", "About"].map((item) => (
+              <Link
+                key={item}
+                to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                className="text-white hover:text-blue-500 font-medium transition"
+              >
+                {item}
+              </Link>
+            ))}
+
+            {/* Services Dropdown */}
+            <div className="relative">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="text-white hover:text-blue-500 font-medium flex items-center transition"
+              >
+                Services
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </button>
+              {isDropdownOpen && (
+                <div className="absolute top-full mt-2 bg-gray-800 rounded-lg shadow-lg w-80 p-3 z-50">
+                  <ul className="space-y-2">
+                    {serviceCategories.map((category, index) => (
+                      <li key={index}>
+                        <button
+                          onClick={() => toggleCategory(index)}
+                          className="w-full text-left px-4 py-2 text-blue-400 font-semibold flex justify-between items-center hover:bg-gray-700 rounded transition"
+                        >
+                          {category.category}
+                          <ChevronRight
+                            className={`h-4 w-4 transition-transform ${
+                              activeCategory === index ? "rotate-90" : ""
+                            }`}
+                          />
+                        </button>
+                        {activeCategory === index && (
+                          <ul className="ml-4 mt-1">
+                            {category.services.map((service, idx) => (
+                              <li key={idx}>
                                 <Link
-                                  to={`/services/${route}`}
-                                  className="block px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white transition"
-                                  onClick={closeDropdown}
+                                  to={`/services/${service.route}`}
+                                  className="block px-4 py-1 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                                  onClick={() => {
+                                    setIsDropdownOpen(false);
+                                    setActiveCategory(null);
+                                  }}
                                 >
-                                  {service}
+                                  {service.name}
                                 </Link>
                               </li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                )
-            )}
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {["Projects", "Contact"].map((item) => (
+              <Link
+                key={item}
+                to={`/${item.toLowerCase()}`}
+                className="text-white hover:text-blue-500 font-medium transition"
+              >
+                {item}
+              </Link>
+            ))}
 
             {/* LinkedIn Button */}
             <a
               href="https://www.linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-auto"
+              className="ml-4"
             >
-              <div className="flex items-center justify-center bg-white text-blue-600 font-bold text-lg rounded-md h-6 w-6">
+              <div className="bg-white text-blue-600 font-bold text-sm rounded-md h-6 w-6 flex items-center justify-center">
                 in
               </div>
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
+          {/* Mobile Menu Toggle */}
+          <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-white hover:text-blue-500 focus:outline-none"
@@ -677,56 +721,88 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Menu */}
-      {/* Mobile Menu */}
-{isOpen && (
-  <div className="md:hidden bg-gray-900 shadow-lg">
-    <div className="px-4 pt-4 pb-4 space-y-1">
-      {["Home", "About", "Services", "Projects", "Contact"].map((item) =>
-        item !== "Services" ? (
-          <Link
-            key={item}
-            to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-            className="block px-4 py-3 text-white font-medium rounded-md hover:bg-blue-500 transition"
-            onClick={() => setIsOpen(false)}
-          >
-            {item}
-          </Link>
-        ) : (
-          <div key="Services" className="relative">
-            {/* Services Dropdown Button */}
-            <button
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-              className="w-full text-left px-4 py-3 text-white font-medium flex items-center justify-between rounded-md hover:bg-gray-800 transition"
-            >
-              Services
-              <ChevronDown className={`h-5 w-5 transition-transform ${isDropdownOpen ? "rotate-180" : ""}`} />
-            </button>
+      {isOpen && (
+        <div className="md:hidden bg-gray-900 shadow-lg">
+          <div className="px-4 pt-4 pb-4 space-y-1">
+            {["Home", "About"].map((item) => (
+              <Link
+                key={item}
+                to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
+                className="block px-4 py-2 text-white hover:bg-blue-500 rounded"
+                onClick={() => setIsOpen(false)}
+              >
+                {item}
+              </Link>
+            ))}
 
-            {/* Dropdown Content */}
-            {isDropdownOpen && (
-              <div className="mt-2 bg-gray-800 rounded-md shadow-lg">
-                <ul className="py-2 space-y-1">
-                  {Object.entries(serviceRoutes).map(([service, route], index) => (
-                    <li key={index}>
-                      <Link
-                        to={`/services/${route}`}
-                        className="block px-6 py-2 text-gray-300 font-medium hover:bg-gray-700 hover:text-white transition"
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {service}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            {/* Services Dropdown Accordion */}
+            <div className="mt-2">
+              <button
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="w-full text-left px-4 py-3 text-white font-medium flex items-center justify-between rounded-md hover:bg-gray-800 transition"
+              >
+                Services
+                <ChevronDown
+                  className={`h-5 w-5 transition-transform ${
+                    isDropdownOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {isDropdownOpen && (
+                <div className="mt-2 bg-gray-800 rounded-md shadow-lg">
+                  <ul className="py-2 space-y-2">
+                    {serviceCategories.map((category, index) => (
+                      <li key={index}>
+                        <button
+                          onClick={() => toggleCategory(index)}
+                          className="w-full text-left px-6 py-2 text-blue-400 font-semibold flex justify-between items-center hover:bg-gray-700 rounded transition"
+                        >
+                          {category.category}
+                          <ChevronRight
+                            className={`h-4 w-4 transition-transform ${
+                              activeCategory === index ? "rotate-90" : ""
+                            }`}
+                          />
+                        </button>
+                        {activeCategory === index && (
+                          <ul className="ml-4 mt-1">
+                            {category.services.map((service, idx) => (
+                              <li key={idx}>
+                                <Link
+                                  to={`/services/${service.route}`}
+                                  className="block px-6 py-1 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                                  onClick={() => {
+                                    setIsOpen(false);
+                                    setIsDropdownOpen(false);
+                                    setActiveCategory(null);
+                                  }}
+                                >
+                                  {service.name}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {["Projects", "Contact"].map((item) => (
+              <Link
+                key={item}
+                to={`/${item.toLowerCase()}`}
+                className="block px-4 py-2 text-white hover:bg-blue-500 rounded"
+                onClick={() => setIsOpen(false)}
+              >
+                {item}
+              </Link>
+            ))}
           </div>
-        )
+        </div>
       )}
-    </div>
-  </div>
-)}
-
     </nav>
   );
 };
