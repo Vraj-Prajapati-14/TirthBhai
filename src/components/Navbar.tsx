@@ -558,10 +558,16 @@
 //   );
 // };
 
-// export default Navbar;  
+// export default Navbar; 
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, Wrench, ChevronDown, ChevronRight } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import {
+  Menu,
+  X,
+  Wrench,
+  ChevronDown,
+  ChevronRight,
+} from "lucide-react";
 
 // Grouped Services
 const serviceCategories = [
@@ -599,12 +605,23 @@ const serviceCategories = [
   {
     category: "Operational Consulting",
     services: [
-      { name: "Lean Manufacturing & Process Improvement Consulting", route: "lean-manufacturing" },
+      {
+        name: "Lean Manufacturing & Process Improvement Consulting",
+        route: "lean-manufacturing",
+      },
     ],
   },
 ];
 
-const Navbar = () => {
+const Navbar = ({ variant = "dark" }: { variant?: "dark" | "light" }) => {
+  const location = useLocation();
+  const isAboutPage = location.pathname === "/about";
+
+  const textColor = variant === "light" || isAboutPage ? "text-black" : "text-white";
+  const hoverColor = variant === "light" || isAboutPage ? "hover:text-blue-600" : "hover:text-blue-500";
+  const dropdownBg = variant === "light" || isAboutPage ? "bg-gray-100" : "bg-gray-800";
+  const dropdownHover = variant === "light" || isAboutPage ? "hover:bg-gray-200" : "hover:bg-gray-700";
+
   const [isOpen, setIsOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<number | null>(null);
@@ -619,8 +636,8 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <Wrench className="h-8 w-8 text-blue-500" />
-            <span className="ml-2 text-xl font-bold text-white">MechConsult</span>
+            <Wrench className={`h-8 w-8 text-blue-500`} />
+            <span className={`ml-2 text-xl font-bold ${textColor}`}>MechConsult</span>
           </Link>
 
           {/* Desktop Menu */}
@@ -629,7 +646,7 @@ const Navbar = () => {
               <Link
                 key={item}
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                className="text-white hover:text-blue-500 font-medium transition"
+                className={`${textColor} ${hoverColor} font-medium transition`}
               >
                 {item}
               </Link>
@@ -639,19 +656,19 @@ const Navbar = () => {
             <div className="relative">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="text-white hover:text-blue-500 font-medium flex items-center transition"
+                className={`${textColor} ${hoverColor} font-medium flex items-center transition`}
               >
                 Services
                 <ChevronDown className="ml-1 h-4 w-4" />
               </button>
               {isDropdownOpen && (
-                <div className="absolute top-full mt-2 bg-gray-800 rounded-lg shadow-lg w-80 p-3 z-50">
+                <div className={`absolute top-full mt-2 ${dropdownBg} rounded-lg shadow-lg w-80 p-3 z-50`}>
                   <ul className="space-y-2">
                     {serviceCategories.map((category, index) => (
                       <li key={index}>
                         <button
                           onClick={() => toggleCategory(index)}
-                          className="w-full text-left px-4 py-2 text-blue-400 font-semibold flex justify-between items-center hover:bg-gray-700 rounded transition"
+                          className={`w-full text-left px-4 py-2 text-blue-500 font-semibold flex justify-between items-center ${dropdownHover} rounded transition`}
                         >
                           {category.category}
                           <ChevronRight
@@ -666,7 +683,7 @@ const Navbar = () => {
                               <li key={idx}>
                                 <Link
                                   to={`/services/${service.route}`}
-                                  className="block px-4 py-1 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                                  className={`block px-4 py-1 text-gray-700 ${dropdownHover} hover:text-blue-700 rounded`}
                                   onClick={() => {
                                     setIsDropdownOpen(false);
                                     setActiveCategory(null);
@@ -689,7 +706,7 @@ const Navbar = () => {
               <Link
                 key={item}
                 to={`/${item.toLowerCase()}`}
-                className="text-white hover:text-blue-500 font-medium transition"
+                className={`${textColor} ${hoverColor} font-medium transition`}
               >
                 {item}
               </Link>
@@ -712,7 +729,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-white hover:text-blue-500 focus:outline-none"
+              className={`${textColor} ${hoverColor} focus:outline-none`}
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -722,13 +739,13 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden bg-gray-900 shadow-lg">
+        <div className={`md:hidden ${dropdownBg} shadow-lg`}>
           <div className="px-4 pt-4 pb-4 space-y-1">
             {["Home", "About"].map((item) => (
               <Link
                 key={item}
                 to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                className="block px-4 py-2 text-white hover:bg-blue-500 rounded"
+                className={`block px-4 py-2 ${textColor} ${dropdownHover} rounded`}
                 onClick={() => setIsOpen(false)}
               >
                 {item}
@@ -739,7 +756,7 @@ const Navbar = () => {
             <div className="mt-2">
               <button
                 onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                className="w-full text-left px-4 py-3 text-white font-medium flex items-center justify-between rounded-md hover:bg-gray-800 transition"
+                className={`w-full text-left px-4 py-3 ${textColor} font-medium flex items-center justify-between rounded-md ${dropdownHover} transition`}
               >
                 Services
                 <ChevronDown
@@ -749,13 +766,13 @@ const Navbar = () => {
                 />
               </button>
               {isDropdownOpen && (
-                <div className="mt-2 bg-gray-800 rounded-md shadow-lg">
+                <div className={`mt-2 ${dropdownBg} rounded-md shadow-lg`}>
                   <ul className="py-2 space-y-2">
                     {serviceCategories.map((category, index) => (
                       <li key={index}>
                         <button
                           onClick={() => toggleCategory(index)}
-                          className="w-full text-left px-6 py-2 text-blue-400 font-semibold flex justify-between items-center hover:bg-gray-700 rounded transition"
+                          className={`w-full text-left px-6 py-2 text-blue-500 font-semibold flex justify-between items-center ${dropdownHover} rounded transition`}
                         >
                           {category.category}
                           <ChevronRight
@@ -770,7 +787,7 @@ const Navbar = () => {
                               <li key={idx}>
                                 <Link
                                   to={`/services/${service.route}`}
-                                  className="block px-6 py-1 text-gray-300 hover:bg-gray-700 hover:text-white rounded"
+                                  className={`block px-6 py-1 text-gray-700 ${dropdownHover} hover:text-blue-700 rounded`}
                                   onClick={() => {
                                     setIsOpen(false);
                                     setIsDropdownOpen(false);
@@ -794,7 +811,7 @@ const Navbar = () => {
               <Link
                 key={item}
                 to={`/${item.toLowerCase()}`}
-                className="block px-4 py-2 text-white hover:bg-blue-500 rounded"
+                className={`block px-4 py-2 ${textColor} ${dropdownHover} rounded`}
                 onClick={() => setIsOpen(false)}
               >
                 {item}

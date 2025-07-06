@@ -582,6 +582,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Navbar from "../components/Navbar";
 import HeroSection from "../components/HeroSection";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const Home = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -646,11 +648,18 @@ const Home = () => {
   return (
     <div className="min-h-screen">
       <HeroSection
-        title="Engineering Excellence\nThrough Innovation"
+        title={
+    <>
+      Engineering Excellence<br />
+      Through Innovation
+    </>
+  }
+
         subtitle="Leading mechanical engineering consultancy delivering innovative solutions for complex industrial challenges."
         buttonText="Enquire Now"
         buttonLink="services"
       />
+       <Navbar />
       {/* Services Section */}
       <section ref={ref} className="py-20 bg-gray-50" id="services">
         <div className="max-w-7xl mx-auto px-4">

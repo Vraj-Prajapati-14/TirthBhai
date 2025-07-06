@@ -422,14 +422,14 @@ const Contact = () => {
                 <MapPin className="w-6 h-6 text-blue-600 mt-1" />
                 <div>
                   <h3 className="font-semibold">Address</h3>
-                  <p>123 Engineering St, Tech City, TC 12345</p>
+                  <p>Forth Avenue Blacktown NSW 2148</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">
                 <Phone className="w-6 h-6 text-blue-600 mt-1" />
                 <div>
                   <h3 className="font-semibold">Phone</h3>
-                  <p>+1 234 567 8900</p>
+                  <p>+61 0401260028</p>
                 </div>
               </div>
               <div className="flex items-start space-x-4">

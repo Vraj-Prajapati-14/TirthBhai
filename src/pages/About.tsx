@@ -491,7 +491,6 @@
 // };
 
 // export default About;
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -505,6 +504,7 @@ import {
   Linkedin,
 } from 'lucide-react';
 import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 interface TeamMember {
   name: string;
@@ -519,6 +519,12 @@ interface TeamMember {
 const About = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+
+  const navigate = useNavigate();
+
+  const handleContactClick = () => {
+    navigate('/contact');
+  };
 
   useEffect(() => {
     document.body.classList.toggle('overflow-hidden', !!selectedMember);
@@ -551,28 +557,35 @@ const About = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section
-        className="relative h-[100vh] bg-cover bg-center"
-        style={{ backgroundImage: "url('/uploads/bg.jpg')" }}
-      >
+      <section className="relative h-[100vh] bg-gradient-to-r from-gray-100 to-gray-200 flex items-center justify-center px-4 lg:px-12">
         <Navbar />
-        <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center px-8 lg:px-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-white max-w-3xl"
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-center max-w-3xl"
+        >
+          <div className="bg-[#ff8c42] text-white px-4 py-2 rounded-full inline-block mb-4 text-sm uppercase letter-spacing-[1px]">
+            We drive success for businesses worldwide!
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+            Unlocking Tomorrow's Tech Today!
+          </h1>
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Our mission is to empower digital disruptors to see the invisible and achieve the impossible with
+            cutting-edge digital solutions.
+          </p>
+          <button
+            className="bg-[#ff8c42] text-white px-6 py-3 rounded-full text-base font-semibold uppercase letter-spacing-[1px] hover:bg-[#e07a38] transition-colors duration-300"
+            onClick={handleContactClick}
           >
-            <h1 className="text-5xl md:text-6xl font-extrabold mb-6">About Us</h1>
-            <p className="text-lg leading-relaxed max-w-2xl mb-8">
-              Delivering innovative mechanical solutions with precision and expertise.
-            </p>
-          </motion.div>
-        </div>
+            Let's Talk
+          </button>
+        </motion.div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-800">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
@@ -586,11 +599,11 @@ const About = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
-                className="text-center"
+                className="text-center p-6 bg-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 text-white"
               >
-                <stat.icon className="w-12 h-12 text-blue-600 mx-auto mb-4" />
-                <h3 className="text-3xl font-bold text-gray-900 mb-2">{stat.value}</h3>
-                <p className="text-gray-600">{stat.label}</p>
+                <stat.icon className="w-12 h-12 text-blue-300 mx-auto mb-4" />
+                <h3 className="text-3xl font-bold text-white mb-2">{stat.value}</h3>
+                <p className="text-gray-300">{stat.label}</p>
               </motion.div>
             ))}
           </div>

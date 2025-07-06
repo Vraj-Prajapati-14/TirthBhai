@@ -1,5 +1,8 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { Link } from "react-scroll";
+import { ChevronRight } from "lucide-react";
+
 
 // Particle Background Component
 const ParticleBackground = () => {
